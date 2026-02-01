@@ -134,14 +134,14 @@ jobs:
         cd openwrt && make defconfig
         
     - name: SSH connection to Actions
-      uses: csexton/debugger-action@master
-      if: ${{ inputs.ssh || contains(github.event.action, 'ssh') }}
+        uses: csexton/debugger-action@master
+        if: ${{ inputs.ssh || contains(github.event.action, 'ssh') }}
       
         
     - name: Download package
       working-directory: ./openwrt
       run: |
-        make download -j$(nproc) || { echo "Download failed"; exit 1; }
+        make download -j4 V=s
         find dl -size -1024c -delete
         
     - name: 查看 openwrt 根目录
